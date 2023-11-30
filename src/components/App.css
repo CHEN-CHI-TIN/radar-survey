@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  height: 100vh;
+  background-color: whitesmoke;
+}
+
+/* DivButton.css */
+.div-button {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  user-select: none; /* 防止選取文本 */
+  transition: background-color 0.3s;
+  font-size: 24px;
+}
+
+.div-button:focus {
+  outline: none;
+}
+
+.div-button:hover {
+  background-color: #0056b3;
+}
+
+.score-text {
+  padding-top: 12px;
+  font-size: 2em;
+}

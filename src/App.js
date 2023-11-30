@@ -4,6 +4,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import imgHypeCycle from "./images/790920_hypecycle.jpg";
 import SVGRadarComponent from "./components/SVGRadarComponent";
+import MyStep from "./components/MyStep";
+import "./App.css";
 import {
   filterKeys,
   extractTechIds,
@@ -13,8 +15,9 @@ import {
   transformInput,
 } from "./components/CosWheel";
 import uiContent from "./content/uiContent.json";
-import "./App.css";
+import MyStep from "./components/MyStep";
 
+const activeStep = 1;
 function App() {
   const [card1, setCard1] = useState(true);
   const [card2, setCard2] = useState(false);
@@ -35,6 +38,8 @@ function App() {
   const [innovationAllData, setInnovationAllData] = useState([]);
   const [selectedValues, setSelectedValues] = useState({});
   const [mediaQuery, setMediaQuery] = useState(230); // 預設值設為 230
+
+  const [activeStep, setActiveStep] = useState(0);
 
   const staffId = useRef("");
   const staff_name_tw = useRef("");
@@ -68,7 +73,7 @@ function App() {
             style={{ flex: 3, minWidth: "300px" }}
             className="flex flex-col justify-center gap-6 text-lg"
           >
-            {/* <div>{uiContent.step2.description.A}</div> */}
+            <div>{uiContent.step1.description}</div>
             {/* <div>{uiContent.step2.description["2"]}</div> */}
             {/* <div>{uiContent.step2.description["3"]}</div> */}
             {/* <div>{uiContent.step2.description["4"]}</div> */}
@@ -130,8 +135,9 @@ function App() {
   const Card2ChoiceClass = ({ title, lastClick, nextClick, zone }) => {
     return (
       <>
-        <div className="text-4xl font-bold mb-2">{uiContent.step2.title}</div>
-        {/* <div className="mx-4 text-lg">{uiContent.step2.description}</div> */}
+        <div>
+          <div className="text-4xl font-bold mb-2">{title}</div>
+        </div>
         <div
           style={{ overflowY: "auto" }}
           className="flex-1 p-4 flex items-center flex-row gap-24 justify-center flex-wrap"
@@ -214,7 +220,11 @@ function App() {
             />
           </div>
           <div
-            style={{ backgroundColor: "rgba(0,0,0,0.1)", minWidth: "500px" }}
+            style={{
+              backgroundColor: "rgba(0,0,0,0.1)",
+              width: "400px",
+              minWidth: "300px",
+            }}
             className="rounded-xl h-full flex flex-col px-10 py-16 flex-wrap"
           >
             {zone == 0 && (
@@ -303,6 +313,7 @@ function App() {
                       style={{ height: "200px", minHeight: "200px" }}
                       className="flex flex-col rounded-lg bg-slate-100 shadow-sm p-4 justify-between"
                     >
+                      <Steps />
                       <div className="text-xl flex">
                         {item["innovation_tech_name"]}
                       </div>
@@ -674,7 +685,7 @@ function App() {
         )}
         {card2 && (
           <Card2ChoiceClass
-            title={"選擇分類"}
+            title={uiContent.step2.title}
             lastClick={() => {
               setCard1(true);
               setCard2(false);
