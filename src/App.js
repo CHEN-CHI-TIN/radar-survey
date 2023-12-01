@@ -15,10 +15,10 @@ import {
   transformInput,
 } from "./components/CosWheel";
 import uiContent from "./content/uiContent.json";
-import MyStep from "./components/MyStep";
 
 const activeStep = 1;
 function App() {
+  const [upload, setUpload] = useState(false);
   const [card1, setCard1] = useState(true);
   const [card2, setCard2] = useState(false);
   const [card3, setCard3] = useState(false);
@@ -64,14 +64,17 @@ function App() {
     const [num, setNum] = useState("");
     return (
       <>
-        <div className="text-4xl font-bold">{title}</div>
+        <div className="flex flex-row">
+          <div className="text-4xl font-bold">{title}</div>
+          {/* <div className="text-4xl font-bold">{<MyStep />}</div> */}
+        </div>
         <div
           style={{ overflowY: "auto" }}
           className="flex flex-1 p-4 gap-6 flex-wrap-reverse justify-center"
         >
           <div
             style={{ flex: 3, minWidth: "300px" }}
-            className="flex flex-col justify-center gap-6 text-lg"
+            className="flex flex-col justify-center gap-6 text-xl"
           >
             <div>{uiContent.step1.description}</div>
             {/* <div>{uiContent.step2.description["2"]}</div> */}
@@ -137,6 +140,16 @@ function App() {
       <>
         <div>
           <div className="text-4xl font-bold mb-2">{title}</div>
+          <div
+            style={{ flex: 3, minWidth: "300px" }}
+            className="flex flex-col justify-center gap-6 text-xl mt-6"
+          >
+            <div>{uiContent.step2.description["1"]}</div>
+            <div>{uiContent.step2.description["2"]}</div>
+            <div>{uiContent.step2.description["3"]}</div>
+            <div>{uiContent.step2.description["4"]}</div>
+            <div>{uiContent.step2.description["5"]}</div>
+          </div>
         </div>
         <div
           style={{ overflowY: "auto" }}
@@ -155,7 +168,7 @@ function App() {
                 zIndex: 2,
                 left: "15%",
                 top: "25%",
-                fontSize: "32px",
+                fontSize: "1.5rem",
                 fontWeight: "bolder",
                 color: "white",
               }}
@@ -222,6 +235,7 @@ function App() {
           <div
             style={{
               backgroundColor: "rgba(0,0,0,0.1)",
+              // maxWidth: "600px",
               width: "400px",
               minWidth: "300px",
             }}
@@ -313,7 +327,6 @@ function App() {
                       style={{ height: "200px", minHeight: "200px" }}
                       className="flex flex-col rounded-lg bg-slate-100 shadow-sm p-4 justify-between"
                     >
-                      <Steps />
                       <div className="text-xl flex">
                         {item["innovation_tech_name"]}
                       </div>
@@ -537,17 +550,19 @@ function App() {
           <DivButton
             text={"上傳問卷"}
             onClick={() => {
-              handleSubmit();
+              setUpload(true);
+              handleSubmit("123", "timmy", "H001", "JSON");
             }}
           />
         </div>
+        {/* {upload && <div style={{back}} className="w-screen h-screen"></div>} */}
       </>
     );
   };
 
   useEffect(() => {
     const checkSize = () => {
-      if (window.innerWidth < 700) {
+      if (window.innerWidth < 800) {
         setMediaQuery(150);
       } else {
         setMediaQuery(200); // 其他情況，設置 radius 為 230
@@ -666,8 +681,11 @@ function App() {
     }
   };
 
+  const [nowCard, setnowCard] = useState(0);
+
   return (
-    <div className="h-screen bg-slate-500 flex items-center justify-center">
+    <div className="flex-col h-screen bg-slate-500 flex items-center justify-center">
+      <MyStep curStep={nowCard} />
       <div
         style={{ width: "90%", height: "90%" }}
         className="flex flex-col bg-slate-50 rounded-xl p-6 gap-2 shadow-2xl"
@@ -680,6 +698,7 @@ function App() {
               setCard2(true);
               setCard3(false);
               setCard4(false);
+              setnowCard(2);
             }}
           />
         )}
@@ -698,6 +717,7 @@ function App() {
               setCard2(false);
               setCard3(true);
               setCard4(false);
+              setnowCard(3);
             }}
             zone={zone}
           />
@@ -773,6 +793,7 @@ function App() {
                   setCard2(false);
                   setCard3(false);
                   setCard4(true);
+                  setnowCard(4);
                 }}
               />
             </div>
@@ -1082,6 +1103,7 @@ function App() {
                   setCard3(false);
                   setCard4(false);
                   setCard5(true);
+                  setnowCard(4);
                 }}
               />
             </div>
@@ -1104,6 +1126,7 @@ function App() {
               setCard4(false);
               setCard5(false);
               setOver(true);
+              setnowCard(4);
             }}
           />
         )}
