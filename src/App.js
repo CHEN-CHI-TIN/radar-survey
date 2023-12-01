@@ -550,8 +550,19 @@ function App() {
           <DivButton
             text={"上傳問卷"}
             onClick={() => {
-              setUpload(true);
-              handleSubmit("123", "timmy", "H001", "JSON");
+              console.log(selectedValues, "!!!!!!!!!!!!!!!");
+              fetch("http://20.28.192.182:3000/submit")
+                .then((response) => response.json())
+                .then((result) => {
+                  console.log(result);
+                  setRadarType(result);
+                })
+                .catch((error) => {
+                  console.error("Error fetching data:", error);
+                });
+              // handleSubmit(staffId.current.value, staff_name_tw.current.value);
+              // setUpload(true);
+              // console.log(staffId);
             }}
           />
         </div>
@@ -683,6 +694,9 @@ function App() {
 
   const [nowCard, setnowCard] = useState(0);
 
+  useEffect(()=>{
+    console.log(selectedValues, "!!!!!!!!!!!!!!!!!!!!!!!")
+  }, [selectedValues])
   return (
     <div className="flex-col h-screen bg-slate-500 flex items-center justify-center">
       <MyStep curStep={nowCard} />
@@ -742,7 +756,7 @@ function App() {
                     return (
                       <HypeCycleListBlock
                         key={index}
-                        hypeCycleTitle={item.title}
+                        hypeCycleTitle={item.title} 
                         onClick={() => {
                           setHypeCycleSelect(index);
                         }}
@@ -1082,7 +1096,7 @@ function App() {
               </div>
             </div>
             <div className="flex justify-end gap-6">
-              {/* {"測試：" + JSON.stringify(transformInput(selectedValues))} */}
+              {"測試：" + JSON.stringify(transformInput(selectedValues))}
               <DivButton
                 text={"上一步"}
                 onClick={() => {
@@ -1104,6 +1118,7 @@ function App() {
                   setCard4(false);
                   setCard5(true);
                   setnowCard(4);
+                  transformInput(selectedValues);
                 }}
               />
             </div>

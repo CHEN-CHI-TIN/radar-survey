@@ -38,3 +38,12 @@
   padding-top: 12px;
   font-size: 2em;
 }
+
+/* 修改禁用状态的单选按钮的颜色 */
+.input[type="radio"]:disabled {
+  /* 添加您想要的颜色属性 */
+  background-color: #812626; /* 背景颜色 */
+  color: #999; /* 文本颜色 */
+  border-color: #5b2424; /* 边框颜色 */
+  /* 还可以修改其他样式，根据您的需要 */
+}
